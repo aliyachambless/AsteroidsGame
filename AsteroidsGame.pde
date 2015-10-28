@@ -1,17 +1,44 @@
-//your variable declarations here
+SpaceShip crashGreen;
 public void setup() 
 {
-  //your code here
+  size(1000,800);
+  crashGreen = new SpaceShip();
 }
 public void draw() 
 {
-  //your code here
+  background(0);
+  crashGreen.show();
+  crashGreen.move();
 }
 class SpaceShip extends Floater  
 {   
     SpaceShip(){
-
-    };
+      corners = 8;
+      xCorners = new int[corners];
+      yCorners = new int[corners];
+      xCorners[0] = 13;
+      xCorners[1] = 10;
+      xCorners[2] = 0;
+      xCorners[3] = -4;
+      xCorners[4] = -15;
+      xCorners[5] = -4;
+      xCorners[6] = 0;
+      xCorners[7] = 10;
+      yCorners[0] = 0;
+      yCorners[1] = 3;
+      yCorners[2] = 6;
+      yCorners[3] = 12;
+      yCorners[4] = 0;
+      yCorners[5] = -12;
+      yCorners[6] = -6;
+      yCorners[7] = -3;
+      myColor = color(255,0,255);
+      myCenterX = 500;
+      myCenterY = 400;
+      myDirectionX = 0;
+      myDirectionY = 0;
+      myPointDirection = 0;
+    }
     public void setX(int x){myCenterX = x;}
     public void setY(int y){myCenterY = y;}
     public int getX(){return (int)myCenterX;}
@@ -100,4 +127,27 @@ abstract class Floater //Do NOT modify the Floater class! Make changes in the Sp
     endShape(CLOSE);  
   }   
 } 
+public void keyPressed(){
+  if(keyCode == 87){ // w = foreward
+
+  }
+  if(keyCode == 65){ // a = left
+    crashGreen.setPointDirection((int)crashGreen.getPointDirection() - 3);
+    if(crashGreen.getPointDirection() <= 0){
+      crashGreen.setPointDirection(360);
+    }
+  }
+  if(keyCode == 83){ // s = back
+    
+  }
+  if(keyCode == 68){ // d = right
+    crashGreen.setPointDirection((int)crashGreen.getPointDirection() + 3);
+    if(crashGreen.getPointDirection() >= 360){
+      crashGreen.setPointDirection(0);
+    }
+  }
+  if(keyCode == 70){ // f = hyperspace
+    
+  }
+}
 
