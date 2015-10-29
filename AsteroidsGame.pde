@@ -129,25 +129,23 @@ abstract class Floater //Do NOT modify the Floater class! Make changes in the Sp
 } 
 public void keyPressed(){
   if(keyCode == 87){ // w = foreward
-
+    crashGreen.accelerate(1);
   }
   if(keyCode == 65){ // a = left
-    crashGreen.setPointDirection((int)crashGreen.getPointDirection() - 3);
-    if(crashGreen.getPointDirection() <= 0){
-      crashGreen.setPointDirection(360);
-    }
+    crashGreen.rotate(-3);
   }
   if(keyCode == 83){ // s = back
-    
+    crashGreen.accelerate(-1);
   }
   if(keyCode == 68){ // d = right
-    crashGreen.setPointDirection((int)crashGreen.getPointDirection() + 3);
-    if(crashGreen.getPointDirection() >= 360){
-      crashGreen.setPointDirection(0);
-    }
+    crashGreen.rotate(3);
   }
   if(keyCode == 70){ // f = hyperspace
-    
+    crashGreen.setPointDirection((int)(Math.random()*360));
+    crashGreen.setDirectionY(0);
+    crashGreen.setDirectionX(0);
+    crashGreen.setX((int)(Math.random()*1000));
+    crashGreen.setY((int)(Math.random()*800));
   }
 }
 
