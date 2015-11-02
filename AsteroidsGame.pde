@@ -1,14 +1,24 @@
 SpaceShip crashGreen;
+Star[] nightSky = new Star[300];
+Boolean fire = false;
 public void setup() 
 {
   size(1000,800);
   crashGreen = new SpaceShip();
+  for(int i = 0; i < 300; i++){
+    nightSky[i] = new Star();
+  }
 }
 public void draw() 
 {
   background(0);
+  for(int i = 0; i < 300; i++){
+    nightSky[i].show();
+  }
   crashGreen.show();
   crashGreen.move();
+  if(fire == true)
+    line(crashGreen.getX() + cos((int)crashGreen.getPointDirection())*10, crashGreen.getY() + sin((int)crashGreen.getPointDirection())*10, crashGreen.getX() + cos((int)crashGreen.getPointDirection())*20, crashGreen.getY() + sin((int)crashGreen.getPointDirection())*20);
 }
 class SpaceShip extends Floater  
 {   
@@ -48,7 +58,7 @@ class SpaceShip extends Floater
     public void setDirectionY(double y){myDirectionY = y;} 
     public double getDirectionY(){return myDirectionY;}
     public void setPointDirection(int degrees){myPointDirection = degrees;}  
-    public double getPointDirection(){return myPointDirection;}
+    public double getPointDirection(){return (int)myPointDirection;}
 
 }
 abstract class Floater //Do NOT modify the Floater class! Make changes in the SpaceShip class 
@@ -130,6 +140,8 @@ abstract class Floater //Do NOT modify the Floater class! Make changes in the Sp
 public void keyPressed(){
   if(keyCode == 87){ // w = foreward
     crashGreen.accelerate(1);
+    fill(255, 181, 71);
+    fire = true;
   }
   if(keyCode == 65){ // a = left
     crashGreen.rotate(-3);
@@ -146,6 +158,19 @@ public void keyPressed(){
     crashGreen.setDirectionX(0);
     crashGreen.setX((int)(Math.random()*1000));
     crashGreen.setY((int)(Math.random()*800));
+  }
+}
+public class Star {
+  int xPos, yPos, bright;
+  public Star(){
+    xPos = (int)(Math.random()*1000);
+    yPos = (int)(Math.random()*800);
+    bright = (int)(Math.random()*255);
+  }
+  public void show(){
+    fill(255,bright);
+    noStroke();
+    ellipse(xPos, yPos, 5,5);
   }
 }
 
