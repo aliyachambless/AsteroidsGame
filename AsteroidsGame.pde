@@ -17,8 +17,12 @@ public void draw()
   }
   crashGreen.show();
   crashGreen.move();
-  if(fire == true)
-    line(crashGreen.getX() + cos((int)crashGreen.getPointDirection())*10, crashGreen.getY() + sin((int)crashGreen.getPointDirection())*10, crashGreen.getX() + cos((int)crashGreen.getPointDirection())*20, crashGreen.getY() + sin((int)crashGreen.getPointDirection())*20);
+  if(fire == true){
+    stroke(0,98,255);
+    line(crashGreen.getX() - cos((float)Math.toRadians(crashGreen.getPointDirection()))*20, crashGreen.getY() - sin((float)Math.toRadians(crashGreen.getPointDirection()))*20, crashGreen.getX() - cos((float)Math.toRadians(crashGreen.getPointDirection()))*30, crashGreen.getY() - sin((float)Math.toRadians(crashGreen.getPointDirection()))*30);
+    line(crashGreen.getX() - cos((float)Math.toRadians(crashGreen.getPointDirection()+20))*20, crashGreen.getY() - sin((float)Math.toRadians(crashGreen.getPointDirection()+20))*20, crashGreen.getX() - cos((float)Math.toRadians(crashGreen.getPointDirection()+20))*30, crashGreen.getY() - sin((float)Math.toRadians(crashGreen.getPointDirection()+20))*30);
+    line(crashGreen.getX() - cos((float)Math.toRadians(crashGreen.getPointDirection()-20))*20, crashGreen.getY() - sin((float)Math.toRadians(crashGreen.getPointDirection()-20))*20, crashGreen.getX() - cos((float)Math.toRadians(crashGreen.getPointDirection()-20))*30, crashGreen.getY() - sin((float)Math.toRadians(crashGreen.getPointDirection()-20))*30);
+  }
 }
 class SpaceShip extends Floater  
 {   
@@ -42,7 +46,7 @@ class SpaceShip extends Floater
       yCorners[5] = -12;
       yCorners[6] = -6;
       yCorners[7] = -3;
-      myColor = color(255,0,255);
+      myColor = color(144,195,212);
       myCenterX = 500;
       myCenterY = 400;
       myDirectionX = 0;
@@ -159,6 +163,9 @@ public void keyPressed(){
     crashGreen.setX((int)(Math.random()*1000));
     crashGreen.setY((int)(Math.random()*800));
   }
+}
+public void keyReleased(){
+  fire = false;
 }
 public class Star {
   int xPos, yPos, bright;
