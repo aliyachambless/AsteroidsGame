@@ -1,6 +1,8 @@
 SpaceShip crashGreen;
 Star[] nightSky = new Star[300];
 Boolean fire = false;
+int opp;
+double hyp;
 public void setup() 
 {
   size(1000,800);
@@ -17,6 +19,10 @@ public void draw()
   }
   crashGreen.show();
   crashGreen.move();
+  opp = crashGreen.getY()-mouseY;
+  hyp = Math.sqrt(Math.pow(mouseX - crashGreen.getX(),2)+Math.pow(crashGreen.getY() - mouseY,2));
+  crashGreen.setPointDirection((int)Math.toDegrees(Math.asin(opp/hyp)));
+  System.out.println(crashGreen.getPointDirection());
   if(fire == true){
     stroke(0,98,255);
     line(crashGreen.getX() - cos((float)Math.toRadians(crashGreen.getPointDirection()))*20, crashGreen.getY() - sin((float)Math.toRadians(crashGreen.getPointDirection()))*20, crashGreen.getX() - cos((float)Math.toRadians(crashGreen.getPointDirection()))*30, crashGreen.getY() - sin((float)Math.toRadians(crashGreen.getPointDirection()))*30);
