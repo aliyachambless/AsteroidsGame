@@ -29,9 +29,9 @@ public void draw()
   crashGreen.setPointDirection(calcDirection);
   if(fire == true){
     stroke(0,98,255);
-    line(crashGreen.getX() - cos((float)radians(crashGreen.getPointDirection()))*20, crashGreen.getY() - sin((float)radians(crashGreen.getPointDirection()))*20, crashGreen.getX() - cos((float)Math.toRadians(crashGreen.getPointDirection()))*30, crashGreen.getY() - sin((float)Math.toRadians(crashGreen.getPointDirection()))*30);
-    line(crashGreen.getX() - cos((float)radians(crashGreen.getPointDirection()+20))*20, crashGreen.getY() - sin((float)radians(crashGreen.getPointDirection()+20))*20, crashGreen.getX() - cos((float)Math.toRadians(crashGreen.getPointDirection()+20))*30, crashGreen.getY() - sin((float)Math.toRadians(crashGreen.getPointDirection()+20))*30);
-    line(crashGreen.getX() - cos((float)radians(crashGreen.getPointDirection()-20))*20, crashGreen.getY() - sin((float)radians(crashGreen.getPointDirection()-20))*20, crashGreen.getX() - cos((float)Math.toRadians(crashGreen.getPointDirection()-20))*30, crashGreen.getY() - sin((float)Math.toRadians(crashGreen.getPointDirection()-20))*30);
+    line(crashGreen.getX() - cos((float)radians(crashGreen.getPointDirection()))*20, crashGreen.getY() - sin((float)radians(crashGreen.getPointDirection()))*20, crashGreen.getX() - cos((float)radians(crashGreen.getPointDirection()))*30, crashGreen.getY() - sin((float)radians(crashGreen.getPointDirection()))*30);
+    line(crashGreen.getX() - cos((float)radians(crashGreen.getPointDirection()+20))*20, crashGreen.getY() - sin((float)radians(crashGreen.getPointDirection()+20))*20, crashGreen.getX() - cos((float)radians(crashGreen.getPointDirection()+20))*30, crashGreen.getY() - sin((float)radians(crashGreen.getPointDirection()+20))*30);
+    line(crashGreen.getX() - cos((float)radians(crashGreen.getPointDirection()-20))*20, crashGreen.getY() - sin((float)radians(crashGreen.getPointDirection()-20))*20, crashGreen.getX() - cos((float)radians(crashGreen.getPointDirection()-20))*30, crashGreen.getY() - sin((float)radians(crashGreen.getPointDirection()-20))*30);
   }
 }
 class SpaceShip extends Floater  
