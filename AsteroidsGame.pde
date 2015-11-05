@@ -23,9 +23,9 @@ public void draw()
   adj = mouseX - crashGreen.getX();
   hyp = Math.sqrt(Math.pow(mouseX - crashGreen.getX(),2)+Math.pow(crashGreen.getY() - mouseY,2));
   if(mouseY < crashGreen.getY())
-    calcDirection = -1*(int)Math.degrees(Math.acos(adj/hyp));
+    calcDirection = -1*(int)degrees((float)Math.acos(adj/hyp));
   else 
-    calcDirection = (int)Math.degrees(Math.acos(adj/hyp));
+    calcDirection = (int)degrees((float)Math.acos(adj/hyp));
   crashGreen.setPointDirection(calcDirection);
   if(fire == true){
     stroke(0,98,255);
