@@ -17,6 +17,7 @@ public void draw()
   background(0);
   for(int i = 0; i < 300; i++){
     nightSky[i].show();
+    //nightSky[i].blink();
   }
   crashGreen.show();
   crashGreen.move();
@@ -29,9 +30,9 @@ public void draw()
   crashGreen.setPointDirection(calcDirection);
   if(fire == true){
     stroke(0,98,255);
-    line(crashGreen.getX() - cos((float)radians(crashGreen.getPointDirection()))*20, crashGreen.getY() - sin((float)radians(crashGreen.getPointDirection()))*20, crashGreen.getX() - cos((float)radians(crashGreen.getPointDirection()))*30, crashGreen.getY() - sin((float)radians(crashGreen.getPointDirection()))*30);
-    line(crashGreen.getX() - cos((float)radians(crashGreen.getPointDirection()+20))*20, crashGreen.getY() - sin((float)radians(crashGreen.getPointDirection()+20))*20, crashGreen.getX() - cos((float)radians(crashGreen.getPointDirection()+20))*30, crashGreen.getY() - sin((float)radians(crashGreen.getPointDirection()+20))*30);
-    line(crashGreen.getX() - cos((float)radians(crashGreen.getPointDirection()-20))*20, crashGreen.getY() - sin((float)radians(crashGreen.getPointDirection()-20))*20, crashGreen.getX() - cos((float)radians(crashGreen.getPointDirection()-20))*30, crashGreen.getY() - sin((float)radians(crashGreen.getPointDirection()-20))*30);
+    line(crashGreen.getX() - cos((float)radians((float)crashGreen.getPointDirection()))*20, crashGreen.getY() - sin((float)radians((float)crashGreen.getPointDirection()))*20, crashGreen.getX() - cos((float)radians((float)crashGreen.getPointDirection()))*30, crashGreen.getY() - sin((float)radians((float)crashGreen.getPointDirection()))*30);
+    line(crashGreen.getX() - cos((float)radians((float)crashGreen.getPointDirection()+20))*20, crashGreen.getY() - sin((float)radians((float)crashGreen.getPointDirection()+20))*20, crashGreen.getX() - cos((float)radians((float)crashGreen.getPointDirection()+20))*30, crashGreen.getY() - sin((float)radians((float)crashGreen.getPointDirection()+20))*30);
+    line(crashGreen.getX() - cos((float)radians((float)crashGreen.getPointDirection()-20))*20, crashGreen.getY() - sin((float)radians((float)crashGreen.getPointDirection()-20))*20, crashGreen.getX() - cos((float)radians((float)crashGreen.getPointDirection()-20))*30, crashGreen.getY() - sin((float)radians((float)crashGreen.getPointDirection()-20))*30);
   }
 }
 class SpaceShip extends Floater  
@@ -157,16 +158,16 @@ public void keyPressed(){
     fill(255, 181, 71);
     fire = true;
   }
-  if(keyCode == 65){ // a = left
-    crashGreen.rotate(-3);
-  }
+  // if(keyCode == 65){ // a = left
+  //   crashGreen.rotate(-3);
+  // }
   if(keyCode == 83){ // s = back
     crashGreen.accelerate(-1);
   }
-  if(keyCode == 68){ // d = right
-    crashGreen.rotate(3);
-  }
-  if(keyCode == 70){ // f = hyperspace
+  // if(keyCode == 68){ // d = right
+  //   crashGreen.rotate(3);
+  // }
+  if(keyCode == 68){ // d = hyperspace
     crashGreen.setPointDirection((int)(Math.random()*360));
     crashGreen.setDirectionY(0);
     crashGreen.setDirectionX(0);
@@ -189,5 +190,14 @@ public class Star {
     noStroke();
     ellipse(xPos, yPos, 5,5);
   }
+//   public void blink(){
+//     int flicker = bright;
+//     for(int i = bright; i >= bright-100 && i >= 0; i-=20){
+//       fill(flicker,flicker,flicker);
+//       noStroke();
+//       ellipse(xPos, yPos, 5,5);
+//       flicker -= i;
+//     }
+//   }
 }
 
