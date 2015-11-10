@@ -5,13 +5,16 @@ Boolean fire = false;
 int adj;
 double hyp;
 int calcDirection;
+int rocks;
 public void setup() 
 {
   size(1000,800);
   crashGreen = new SpaceShip();
-  firstRock = new Asteroid[20];
-  for(int i = 0; i < 20; i++){
+  firstRock = new Asteroid[24];
+  rocks = 0;
+  for(int i = 0; i < 6; i++){
     firstRock[i] = new Asteroid();
+    rocks += 1;
   }
   for(int i = 0; i < 300; i++){
     nightSky[i] = new Star();
@@ -24,7 +27,7 @@ public void draw()
     nightSky[i].show();
     //nightSky[i].blink();
   }
-  for(int i = 0; i < firstRock.length; i++){
+  for(int i = 0; i < rocks; i++){
     firstRock[i].show();
     firstRock[i].move();
   }
@@ -183,6 +186,13 @@ public void keyPressed(){
     crashGreen.setX((int)(Math.random()*1000));
     crashGreen.setY((int)(Math.random()*800));
   }
+  if(keyCode == 32){
+    firstRock[0].split();
+    firstRock[rocks] = firstRock[0];
+    rocks += 1;
+    firstRock[0].setDirectionX((int)(Math.random()*6)-3);
+    firstRock[0].setDirectionY((int)(Math.random()*6)-3);
+  }
 }
 public void keyReleased(){
   fire = false;
@@ -210,30 +220,31 @@ public class Star {
 //   }
 }
 public class Asteroid extends Floater{
-  private int rotSpeed;
+  private int rotSpeed, rockSize;
   public Asteroid(){
     rotSpeed = (int)(Math.random()*6)-3;
     corners = 9;
+    rockSize = 3;
     xCorners = new int[corners];
     yCorners = new int[corners];
-    xCorners[0] = 8;
-    xCorners[1] = 8;
-    xCorners[2] = 0;
-    xCorners[3] = -4;
-    xCorners[4] = -11;
-    xCorners[5] = -11;
-    xCorners[6] = -6;
-    xCorners[7] = 8;
-    xCorners[8] = 10;
-    yCorners[0] = 2;
-    yCorners[1] = 10;
-    yCorners[2] = 12;
-    yCorners[3] = 7;
-    yCorners[4] = 4;
-    yCorners[5] = -5;
-    yCorners[6] = -10;
-    yCorners[7] = -7;
-    yCorners[8] = -3;
+    xCorners[0] = 8 * rockSize;
+    xCorners[1] = 8 * rockSize;
+    xCorners[2] = 0 * rockSize;
+    xCorners[3] = -4 * rockSize;
+    xCorners[4] = -11 * rockSize;
+    xCorners[5] = -11 * rockSize;
+    xCorners[6] = -6 * rockSize;
+    xCorners[7] = 8 * rockSize;
+    xCorners[8] = 10 * rockSize;
+    yCorners[0] = 2 * rockSize;
+    yCorners[1] = 10 * rockSize;
+    yCorners[2] = 12 * rockSize;
+    yCorners[3] = 7 * rockSize;
+    yCorners[4] = 4 * rockSize;
+    yCorners[5] = -5 * rockSize;
+    yCorners[6] = -10 * rockSize;
+    yCorners[7] = -7 * rockSize;
+    yCorners[8] = -3 * rockSize;
     myColor = color(148, 171, 170);
     myCenterX = (int)(Math.random()*1000);
     myCenterY = (int)(Math.random()*800);
@@ -254,5 +265,8 @@ public class Asteroid extends Floater{
   public void move(){
     rotate(rotSpeed);
     super.move();
+  }
+  public void split(){
+    rockSize -= 1;
   }
 }
