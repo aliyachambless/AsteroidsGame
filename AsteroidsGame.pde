@@ -187,11 +187,20 @@ public void keyPressed(){
     crashGreen.setY((int)(Math.random()*800));
   }
   if(keyCode == 32){
+    firstRock[rocks] = new Asteroid();
     firstRock[0].split();
-    firstRock[rocks] = firstRock[0];
+    firstRock[0].resize();
+    firstRock[rocks].setSize(firstRock[0].getSize());
+    firstRock[rocks].resize();
+    firstRock[rocks].setDirectionX(firstRock[0].getDirectionX());
+    firstRock[rocks].setDirectionY(firstRock[0].getDirectionY());
+    firstRock[rocks].setPointDirection((int)firstRock[0].getPointDirection());
+    firstRock[rocks].setX(firstRock[0].getX());
+    firstRock[rocks].setY(firstRock[0].getY());
     rocks += 1;
     firstRock[0].setDirectionX((int)(Math.random()*6)-3);
     firstRock[0].setDirectionY((int)(Math.random()*6)-3);
+    firstRock[0].setPointDirection((int)Math.random()*360);
   }
 }
 public void keyReleased(){
@@ -262,11 +271,33 @@ public class Asteroid extends Floater{
   public double getDirectionY(){return myDirectionY;}
   public void setPointDirection(int degrees){myPointDirection = degrees;}  
   public double getPointDirection(){return (int)myPointDirection;}
+  public void setSize(int size){rockSize = size;}
+  public int getSize(){return rockSize;}
   public void move(){
     rotate(rotSpeed);
     super.move();
   }
   public void split(){
     rockSize -= 1;
+  }
+  public void resize(){
+    xCorners[0] = 8 * rockSize;
+    xCorners[1] = 8 * rockSize;
+    xCorners[2] = 0 * rockSize;
+    xCorners[3] = -4 * rockSize;
+    xCorners[4] = -11 * rockSize;
+    xCorners[5] = -11 * rockSize;
+    xCorners[6] = -6 * rockSize;
+    xCorners[7] = 8 * rockSize;
+    xCorners[8] = 10 * rockSize;
+    yCorners[0] = 2 * rockSize;
+    yCorners[1] = 10 * rockSize;
+    yCorners[2] = 12 * rockSize;
+    yCorners[3] = 7 * rockSize;
+    yCorners[4] = 4 * rockSize;
+    yCorners[5] = -5 * rockSize;
+    yCorners[6] = -10 * rockSize;
+    yCorners[7] = -7 * rockSize;
+    yCorners[8] = -3 * rockSize;
   }
 }
