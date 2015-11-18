@@ -1,5 +1,5 @@
 SpaceShip crashGreen;
-Asteroid[] firstRock;
+ArrayList <Asteroid> firstRock = new ArrayList <Asteroid>();
 Star[] nightSky = new Star[300];
 Boolean fire = false;
 int adj;
@@ -10,11 +10,9 @@ public void setup()
 {
   size(1000,800);
   crashGreen = new SpaceShip();
-  firstRock = new Asteroid[24];
   rocks = 0;
   for(int i = 0; i < 6; i++){
-    firstRock[i] = new Asteroid();
-    rocks += 1;
+    firstRock.add(new Asteroid());
   }
   for(int i = 0; i < 300; i++){
     nightSky[i] = new Star();
@@ -27,9 +25,9 @@ public void draw()
     nightSky[i].show();
     //nightSky[i].blink();
   }
-  for(int i = 0; i < rocks; i++){
-    firstRock[i].show();
-    firstRock[i].move();
+  for(int i = 0; i < firstRock.size(); i++){
+    firstRock.get(i).show();
+    firstRock.get(i).move();
   }
   crashGreen.show();
   crashGreen.move();
@@ -187,20 +185,6 @@ public void keyPressed(){
     crashGreen.setY((int)(Math.random()*800));
   }
   if(keyCode == 32){
-    firstRock[rocks] = new Asteroid();
-    firstRock[0].split();
-    firstRock[0].resize();
-    firstRock[rocks].setSize(firstRock[0].getSize());
-    firstRock[rocks].resize();
-    firstRock[rocks].setDirectionX(firstRock[0].getDirectionX());
-    firstRock[rocks].setDirectionY(firstRock[0].getDirectionY());
-    firstRock[rocks].setPointDirection((int)firstRock[0].getPointDirection());
-    firstRock[rocks].setX(firstRock[0].getX());
-    firstRock[rocks].setY(firstRock[0].getY());
-    rocks += 1;
-    firstRock[0].setDirectionX((int)(Math.random()*6)-3);
-    firstRock[0].setDirectionY((int)(Math.random()*6)-3);
-    firstRock[0].setPointDirection((int)Math.random()*360);
   }
 }
 public void keyReleased(){
@@ -227,6 +211,20 @@ public class Star {
 //       flicker -= i;
 //     }
 //   }
+}
+public void mouseClicked(){
+  for(int i = 0; i < firstRock.size(); i++){
+    if(mouseX < firstRock.get(i).getX() + (10 * firstRock.get(i).getSize()) && mouseX > firstRock.get(i).getX() - (10 * firstRock.get(i).getSize()) && mouseY > firstRock.get(i).getX() - (10 * firstRock.get(i).getSize()) && mouseY > firstRock.get(i).getX() - (10 * firstRock.get(i).getSize())){
+      firstRock.add(new Asteroid());
+      firstRock.get(firstRock.size() - 1).setX(firstRock.get(i).getX());
+      firstRock.get(firstRock.size() - 1).setY(firstRock.get(i).getY());
+      firstRock.get(i).smaller();
+      firstRock.get(firstRock.size() - 1).setSize(firstRock.get(i).getSize());
+      firstRock.get(firstRock.size() - 1).setColor(color(255,0,0));
+      firstRock.get(i).redo();
+      firstRock.get(firstRock.size() - 1).redo();
+    }
+  }
 }
 public class Asteroid extends Floater{
   private int rotSpeed, rockSize;
@@ -273,14 +271,15 @@ public class Asteroid extends Floater{
   public double getPointDirection(){return (int)myPointDirection;}
   public void setSize(int size){rockSize = size;}
   public int getSize(){return rockSize;}
+  public void setColor(int mcolor){myColor = mcolor;}
   public void move(){
     rotate(rotSpeed);
     super.move();
   }
-  public void split(){
+  public void smaller(){
     rockSize -= 1;
   }
-  public void resize(){
+  public void redo(){
     xCorners[0] = 8 * rockSize;
     xCorners[1] = 8 * rockSize;
     xCorners[2] = 0 * rockSize;
@@ -299,5 +298,8 @@ public class Asteroid extends Floater{
     yCorners[6] = -10 * rockSize;
     yCorners[7] = -7 * rockSize;
     yCorners[8] = -3 * rockSize;
+    myDirectionX = (int)(Math.random()*6)-3;
+    myDirectionY = (int)(Math.random()*6)-3;
+    myPointDirection = (int)(Math.random()*360);
   }
 }
