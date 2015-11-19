@@ -212,17 +212,24 @@ public class Star {
 //     }
 //   }
 }
-public void mouseClicked(){
+public void mousePressed(){
+  System.out.println("mouse clicked");
   for(int i = 0; i < firstRock.size(); i++){
-    if(mouseX < firstRock.get(i).getX() + (10 * firstRock.get(i).getSize()) && mouseX > firstRock.get(i).getX() - (10 * firstRock.get(i).getSize()) && mouseY > firstRock.get(i).getX() - (10 * firstRock.get(i).getSize()) && mouseY > firstRock.get(i).getX() - (10 * firstRock.get(i).getSize())){
-      firstRock.add(new Asteroid());
-      firstRock.get(firstRock.size() - 1).setX(firstRock.get(i).getX());
-      firstRock.get(firstRock.size() - 1).setY(firstRock.get(i).getY());
-      firstRock.get(i).smaller();
-      firstRock.get(firstRock.size() - 1).setSize(firstRock.get(i).getSize());
-      firstRock.get(firstRock.size() - 1).setColor(color(255,0,0));
-      firstRock.get(i).redo();
-      firstRock.get(firstRock.size() - 1).redo();
+    if(mouseX <= firstRock.get(i).getX() + (10 * firstRock.get(i).getSize()) && mouseX >= firstRock.get(i).getX() - (10 * firstRock.get(i).getSize()) && mouseY >= firstRock.get(i).getX() - (10 * firstRock.get(i).getSize()) && mouseY >= firstRock.get(i).getX() - (10 * firstRock.get(i).getSize())){
+      System.out.println("clicked ASteroid");
+      if(firstRock.get(i).getSize() > 1){
+        firstRock.add(new Asteroid());
+        firstRock.get(firstRock.size() - 1).setX(firstRock.get(i).getX());
+        firstRock.get(firstRock.size() - 1).setY(firstRock.get(i).getY());
+        firstRock.get(i).smaller();
+        firstRock.get(firstRock.size() - 1).setSize(firstRock.get(i).getSize());
+        firstRock.get(firstRock.size() - 1).setColor(color(255,0,0));
+        firstRock.get(i).redo();
+        firstRock.get(firstRock.size() - 1).redo();
+      }
+      else {
+        firstRock.remove(i);
+      }
     }
   }
 }
