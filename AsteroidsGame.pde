@@ -1,5 +1,6 @@
 SpaceShip crashGreen;
 ArrayList <Asteroid> firstRock = new ArrayList <Asteroid>();
+ArrayList <Bullet> flyingBullets = new ArrayList <Bullet>();
 Star[] nightSky = new Star[300];
 Boolean fire = false;
 int adj;
@@ -29,6 +30,14 @@ public void draw()
     firstRock.get(i).show();
     firstRock.get(i).move();
   }
+  for(int i = 0; i < flyingBullets.size(); i++){
+    flyingBullets.get(i).move();
+    flyingBullets.get(i).show();
+    if(flyingBullets.get(i).getX() > 1000 || flyingBullets.get(i).getX() < 0 || flyingBullets.get(i).getY() > 800 || flyingBullets.get(i).getY() < 0){
+      
+    }
+  }
+  System.out.println(flyingBullets.size());
   crashGreen.show();
   crashGreen.move();
   adj = mouseX - crashGreen.getX();
@@ -43,6 +52,26 @@ public void draw()
     line(crashGreen.getX() - cos((float)radians((float)crashGreen.getPointDirection()))*20, crashGreen.getY() - sin((float)radians((float)crashGreen.getPointDirection()))*20, crashGreen.getX() - cos((float)radians((float)crashGreen.getPointDirection()))*30, crashGreen.getY() - sin((float)radians((float)crashGreen.getPointDirection()))*30);
     line(crashGreen.getX() - cos((float)radians((float)crashGreen.getPointDirection()+20))*20, crashGreen.getY() - sin((float)radians((float)crashGreen.getPointDirection()+20))*20, crashGreen.getX() - cos((float)radians((float)crashGreen.getPointDirection()+20))*30, crashGreen.getY() - sin((float)radians((float)crashGreen.getPointDirection()+20))*30);
     line(crashGreen.getX() - cos((float)radians((float)crashGreen.getPointDirection()-20))*20, crashGreen.getY() - sin((float)radians((float)crashGreen.getPointDirection()-20))*20, crashGreen.getX() - cos((float)radians((float)crashGreen.getPointDirection()-20))*30, crashGreen.getY() - sin((float)radians((float)crashGreen.getPointDirection()-20))*30);
+  }
+  for(int i = 0; i < firstRock.size(); i++){
+    for(int x = 0; x < flyingBullets.size(); x++){
+      if(flyingBullets.get(x).getX() <= firstRock.get(i).getX() + (10 * firstRock.get(i).getSize()) && flyingBullets.get(x).getX() >= firstRock.get(i).getX() - (10 * firstRock.get(i).getSize()) && flyingBullets.get(x).getY() >= firstRock.get(i).getX() - (10 * firstRock.get(i).getSize()) && flyingBullets.get(x).getY() >= firstRock.get(i).getX() - (10 * firstRock.get(i).getSize())){
+        flyingBullets.remove(x);
+        if(firstRock.get(i).getSize() > 1){
+          firstRock.add(new Asteroid());
+          firstRock.get(firstRock.size() - 1).setX(firstRock.get(i).getX());
+          firstRock.get(firstRock.size() - 1).setY(firstRock.get(i).getY());
+          firstRock.get(i).smaller();
+          firstRock.get(firstRock.size() - 1).setSize(firstRock.get(i).getSize());
+          firstRock.get(firstRock.size() - 1).setColor(color(255,0,0));
+          firstRock.get(i).redo();
+          firstRock.get(firstRock.size() - 1).redo();
+        }
+        else {
+          firstRock.remove(i);
+        }
+      }
+    }
   }
 }
 class SpaceShip extends Floater  
@@ -213,25 +242,25 @@ public class Star {
 //   }
 }
 public void mousePressed(){
-  System.out.println("mouse clicked");
-  for(int i = 0; i < firstRock.size(); i++){
-    if(mouseX <= firstRock.get(i).getX() + (10 * firstRock.get(i).getSize()) && mouseX >= firstRock.get(i).getX() - (10 * firstRock.get(i).getSize()) && mouseY >= firstRock.get(i).getX() - (10 * firstRock.get(i).getSize()) && mouseY >= firstRock.get(i).getX() - (10 * firstRock.get(i).getSize())){
-      System.out.println("clicked ASteroid");
-      if(firstRock.get(i).getSize() > 1){
-        firstRock.add(new Asteroid());
-        firstRock.get(firstRock.size() - 1).setX(firstRock.get(i).getX());
-        firstRock.get(firstRock.size() - 1).setY(firstRock.get(i).getY());
-        firstRock.get(i).smaller();
-        firstRock.get(firstRock.size() - 1).setSize(firstRock.get(i).getSize());
-        firstRock.get(firstRock.size() - 1).setColor(color(255,0,0));
-        firstRock.get(i).redo();
-        firstRock.get(firstRock.size() - 1).redo();
-      }
-      else {
-        firstRock.remove(i);
-      }
-    }
-  }
+  flyingBullets.add(new Bullet());
+  // for(int i = 0; i < firstRock.size(); i++){
+  //   if(mouseX <= firstRock.get(i).getX() + (10 * firstRock.get(i).getSize()) && mouseX >= firstRock.get(i).getX() - (10 * firstRock.get(i).getSize()) && mouseY >= firstRock.get(i).getX() - (10 * firstRock.get(i).getSize()) && mouseY >= firstRock.get(i).getX() - (10 * firstRock.get(i).getSize())){
+  //     System.out.println("clicked ASteroid");
+  //     if(firstRock.get(i).getSize() > 1){
+  //       firstRock.add(new Asteroid());
+  //       firstRock.get(firstRock.size() - 1).setX(firstRock.get(i).getX());
+  //       firstRock.get(firstRock.size() - 1).setY(firstRock.get(i).getY());
+  //       firstRock.get(i).smaller();
+  //       firstRock.get(firstRock.size() - 1).setSize(firstRock.get(i).getSize());
+  //       firstRock.get(firstRock.size() - 1).setColor(color(255,0,0));
+  //       firstRock.get(i).redo();
+  //       firstRock.get(firstRock.size() - 1).redo();
+  //     }
+  //     else {
+  //       firstRock.remove(i);
+  //     }
+  //   }
+  // }
 }
 public class Asteroid extends Floater{
   private int rotSpeed, rockSize;
@@ -308,5 +337,27 @@ public class Asteroid extends Floater{
     myDirectionX = (int)(Math.random()*6)-3;
     myDirectionY = (int)(Math.random()*6)-3;
     myPointDirection = (int)(Math.random()*360);
+  }
+}
+public class Bullet{
+  private int speed, xPos, yPos;
+  private double direction;
+  public Bullet(){
+    speed = 5;
+    direction = crashGreen.getPointDirection();
+    xPos = crashGreen.getX();
+    yPos = crashGreen.getY();
+  }
+  public int getX(){return xPos;}
+  public int getY(){return yPos;}
+  public void show(){
+    fill(244, 50, 50);
+    noStroke();
+    ellipse(xPos, yPos, 5, 5);
+  }
+  public void move(){
+    //System.out.println(speed*(sin(radians((float)direction))));
+    xPos += speed*(cos(radians((float)direction)));
+    yPos += speed*(sin(radians((float)direction)));
   }
 }
