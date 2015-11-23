@@ -37,7 +37,7 @@ public void draw()
       
     }
   }
-  System.out.println(flyingBullets.size());
+  //System.out.println(flyingBullets.size());
   crashGreen.show();
   crashGreen.move();
   adj = mouseX - crashGreen.getX();
