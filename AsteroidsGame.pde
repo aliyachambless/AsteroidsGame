@@ -34,7 +34,8 @@ public void draw()
     flyingBullets.get(i).move();
     flyingBullets.get(i).show();
     if(flyingBullets.get(i).getX() > 1000 || flyingBullets.get(i).getX() < 0 || flyingBullets.get(i).getY() > 800 || flyingBullets.get(i).getY() < 0){
-      
+       flyingBullets.remove(i);
+       System.out.println(flyingBullets.size());
     }
   }
   //System.out.println(flyingBullets.size());
@@ -56,6 +57,7 @@ public void draw()
   for(int i = 0; i < firstRock.size(); i++){
     for(int x = 0; x < flyingBullets.size(); x++){
       if(flyingBullets.get(x).getX() <= firstRock.get(i).getX() + (10 * firstRock.get(i).getSize()) && flyingBullets.get(x).getX() >= firstRock.get(i).getX() - (10 * firstRock.get(i).getSize()) && flyingBullets.get(x).getY() >= firstRock.get(i).getX() - (10 * firstRock.get(i).getSize()) && flyingBullets.get(x).getY() >= firstRock.get(i).getX() - (10 * firstRock.get(i).getSize())){
+        System.out.println("rock x: "+ (firstRock.get(i).getX() + (10 * firstRock.get(i).getSize())) + ", bullet x: " + flyingBullets.get(x).getX());
         flyingBullets.remove(x);
         if(firstRock.get(i).getSize() > 1){
           firstRock.add(new Asteroid());
