@@ -55,27 +55,32 @@ public void draw()
     line(crashGreen.getX() - cos((float)radians((float)crashGreen.getPointDirection()-20))*20, crashGreen.getY() - sin((float)radians((float)crashGreen.getPointDirection()-20))*20, crashGreen.getX() - cos((float)radians((float)crashGreen.getPointDirection()-20))*30, crashGreen.getY() - sin((float)radians((float)crashGreen.getPointDirection()-20))*30);
   }
   for(int i = 0; i < firstRock.size(); i++){
-    for(int x = 0; x < flyingBullets.size(); x++){
-      //if(flyingBullets.get(x).getX() <= firstRock.get(i).getX() + (10 * firstRock.get(i).getSize()) && flyingBullets.get(x).getX() >= firstRock.get(i).getX() - (10 * firstRock.get(i).getSize()) && flyingBullets.get(x).getY() >= firstRock.get(i).getX() - (10 * firstRock.get(i).getSize()) && flyingBullets.get(x).getY() >= firstRock.get(i).getX() - (10 * firstRock.get(i).getSize())){
-        //System.out.println("rock x: "+ (firstRock.get(i).getX() + (10 * firstRock.get(i).getSize())) + ", bullet x: " + flyingBullets.get(x).getX());
-      if(dist(flyingBullets.get(x).getX(), flyingBullets.get(x).getY(), firstRock.get(i).getX(), firstRock.get(i).getX()) < 10*firstRock.get(i).getSize()){
-        flyingBullets.remove(x);
-        if(firstRock.get(i).getSize() > 1){
-          firstRock.add(new Asteroid());
-          firstRock.get(firstRock.size() - 1).setX(firstRock.get(i).getX());
-          firstRock.get(firstRock.size() - 1).setY(firstRock.get(i).getY());
-          firstRock.get(i).smaller();
-          firstRock.get(firstRock.size() - 1).setSize(firstRock.get(i).getSize());
-          firstRock.get(firstRock.size() - 1).setColor(color(255,0,0));
-          firstRock.get(i).redo();
-          firstRock.get(firstRock.size() - 1).redo();
-        }
-        else {
-          firstRock.remove(i);
-        }
-      }
+    if(dist(crashGreen.getX(), crashGreen.getY(), firstRock.get(i).getX(), firstRock.get(i).getY()) < 10*firstRock.get(i).getSize()){
+      firstRock.remove(i);
     }
   }
+  // for(int i = 0; i < firstRock.size(); i++){
+  //   for(int x = 0; x < flyingBullets.size(); x++){
+  //     //if(flyingBullets.get(x).getX() <= firstRock.get(i).getX() + (10 * firstRock.get(i).getSize()) && flyingBullets.get(x).getX() >= firstRock.get(i).getX() - (10 * firstRock.get(i).getSize()) && flyingBullets.get(x).getY() >= firstRock.get(i).getX() - (10 * firstRock.get(i).getSize()) && flyingBullets.get(x).getY() >= firstRock.get(i).getX() - (10 * firstRock.get(i).getSize())){
+  //       //System.out.println("rock x: "+ (firstRock.get(i).getX() + (10 * firstRock.get(i).getSize())) + ", bullet x: " + flyingBullets.get(x).getX());
+  //     if(dist(flyingBullets.get(x).getX(), flyingBullets.get(x).getY(), firstRock.get(i).getX(), firstRock.get(i).getX()) < 10*firstRock.get(i).getSize()){
+  //       flyingBullets.remove(x);
+  //       if(firstRock.get(i).getSize() > 1){
+  //         firstRock.add(new Asteroid());
+  //         firstRock.get(firstRock.size() - 1).setX(firstRock.get(i).getX());
+  //         firstRock.get(firstRock.size() - 1).setY(firstRock.get(i).getY());
+  //         firstRock.get(i).smaller();
+  //         firstRock.get(firstRock.size() - 1).setSize(firstRock.get(i).getSize());
+  //         firstRock.get(firstRock.size() - 1).setColor(color(255,0,0));
+  //         firstRock.get(i).redo();
+  //         firstRock.get(firstRock.size() - 1).redo();
+  //       }
+  //       else {
+  //         firstRock.remove(i);
+  //       }
+  //     }
+  //   }
+  // }
 }
 class SpaceShip extends Floater  
 {   
@@ -115,7 +120,7 @@ class SpaceShip extends Floater
     public void setDirectionY(double y){myDirectionY = y;} 
     public double getDirectionY(){return myDirectionY;}
     public void setPointDirection(int degrees){myPointDirection = degrees;}  
-    public double getPointDirection(){return (int)myPointDirection;}
+    public double getPointDirection(){return myPointDirection;}
 
 }
 abstract class Floater //Do NOT modify the Floater class! Make changes in the SpaceShip class 
@@ -343,7 +348,7 @@ public class Asteroid extends Floater{
   }
 }
 public class Bullet{
-  private int speed, xPos, yPos;
+  private float speed, xPos, yPos;
   private double direction;
   public Bullet(){
     speed = 5;
@@ -351,8 +356,8 @@ public class Bullet{
     xPos = crashGreen.getX();
     yPos = crashGreen.getY();
   }
-  public int getX(){return xPos;}
-  public int getY(){return yPos;}
+  public float getX(){return xPos;}
+  public float getY(){return yPos;}
   public void show(){
     fill(244, 50, 50);
     noStroke();
