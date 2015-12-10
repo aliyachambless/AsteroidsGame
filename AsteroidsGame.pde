@@ -33,9 +33,15 @@ public void draw()
     for(int x = 0; x < flyingBullets.size(); x++){
         //if(flyingBullets.get(x).getX() <= firstRock.get(i).getX() + (10 * firstRock.get(i).getSize()) && flyingBullets.get(x).getX() >= firstRock.get(i).getX() - (10 * firstRock.get(i).getSize()) && flyingBullets.get(x).getY() >= firstRock.get(i).getX() - (10 * firstRock.get(i).getSize()) && flyingBullets.get(x).getY() >= firstRock.get(i).getX() - (10 * firstRock.get(i).getSize())){
         //System.out.println("rock x: "+ (firstRock.get(i).getX() + (10 * firstRock.get(i).getSize())) + ", bullet x: " + flyingBullets.get(x).getX());
-      if(dist(flyingBullets.get(x).getX(), flyingBullets.get(x).getY(), firstRock.get(i).getX(), firstRock.get(i).getX()) < 15*firstRock.get(i).getSize()){
+    flyingBullets.get(x).move();
+    flyingBullets.get(x).show();
+    if(flyingBullets.get(x).getX() > 1000 || flyingBullets.get(x).getX() < 0 || flyingBullets.get(x).getY() > 800 || flyingBullets.get(x).getY() < 0 && flyingBullets.size() > 0){
+       flyingBullets.remove(x);
+       //System.out.println(flyingBullets.size());
+    }
+      if(flyingBullets.size() > 0 && dist(flyingBullets.get(x).getX(), flyingBullets.get(x).getY(), firstRock.get(i).getX(), firstRock.get(i).getX()) < 15*firstRock.get(i).getSize()){
         //System.out.println("bullet: " + flyingBullets.get(x).getX() +" "+ flyingBullets.get(x).getY() +" "+ firstRock.get(i).getX() +" "+ firstRock.get(i).getX());
-        flyingBullets.remove(x);
+        //flyingBullets.remove(x);
         score += 1;
         if(firstRock.get(i).getSize() > 1){
           firstRock.get(i).split();
@@ -47,14 +53,14 @@ public void draw()
       }
     }
   }
-  for(int i = 0; i < flyingBullets.size(); i++){
-    flyingBullets.get(i).move();
-    flyingBullets.get(i).show();
-    if(flyingBullets.get(i).getX() > 1000 || flyingBullets.get(i).getX() < 0 || flyingBullets.get(i).getY() > 800 || flyingBullets.get(i).getY() < 0){
-       flyingBullets.remove(i);
-       //System.out.println(flyingBullets.size());
-    }
-  }
+  // for(int i = 0; i < flyingBullets.size(); i++){
+  //   flyingBullets.get(i).move();
+  //   flyingBullets.get(i).show();
+  //   if(flyingBullets.get(i).getX() > 1000 || flyingBullets.get(i).getX() < 0 || flyingBullets.get(i).getY() > 800 || flyingBullets.get(i).getY() < 0){
+  //      flyingBullets.remove(i);
+  //      //System.out.println(flyingBullets.size());
+  //   }
+  // }
   //System.out.println(flyingBullets.size());
   crashGreen.show();
   crashGreen.move();
@@ -376,7 +382,7 @@ public class Bullet{
   private float speed, xPos, yPos;
   private double direction;
   public Bullet(){
-    speed = 8;
+    speed = 3;
     direction = crashGreen.getPointDirection();
     xPos = crashGreen.getX();
     yPos = crashGreen.getY();
