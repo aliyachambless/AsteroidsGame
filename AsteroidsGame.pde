@@ -7,6 +7,7 @@ int adj;
 double hyp;
 int calcDirection;
 int rocks;
+int score = 0;
 public void setup() 
 {
   size(1000,800);
@@ -27,15 +28,31 @@ public void draw()
     //nightSky[i].blink();
   }
   for(int i = 0; i < firstRock.size(); i++){
-    firstRock.get(i).show();
     firstRock.get(i).move();
+    firstRock.get(i).show();
+    for(int x = 0; x < flyingBullets.size(); x++){
+        //if(flyingBullets.get(x).getX() <= firstRock.get(i).getX() + (10 * firstRock.get(i).getSize()) && flyingBullets.get(x).getX() >= firstRock.get(i).getX() - (10 * firstRock.get(i).getSize()) && flyingBullets.get(x).getY() >= firstRock.get(i).getX() - (10 * firstRock.get(i).getSize()) && flyingBullets.get(x).getY() >= firstRock.get(i).getX() - (10 * firstRock.get(i).getSize())){
+        //System.out.println("rock x: "+ (firstRock.get(i).getX() + (10 * firstRock.get(i).getSize())) + ", bullet x: " + flyingBullets.get(x).getX());
+      if(dist(flyingBullets.get(x).getX(), flyingBullets.get(x).getY(), firstRock.get(i).getX(), firstRock.get(i).getX()) < 15*firstRock.get(i).getSize()){
+        //System.out.println("bullet: " + flyingBullets.get(x).getX() +" "+ flyingBullets.get(x).getY() +" "+ firstRock.get(i).getX() +" "+ firstRock.get(i).getX());
+        flyingBullets.remove(x);
+        score += 1;
+        if(firstRock.get(i).getSize() > 1){
+          firstRock.get(i).split();
+          //System.out.println("hit");
+        }
+        else {
+          firstRock.remove(i);
+        }
+      }
+    }
   }
   for(int i = 0; i < flyingBullets.size(); i++){
     flyingBullets.get(i).move();
     flyingBullets.get(i).show();
     if(flyingBullets.get(i).getX() > 1000 || flyingBullets.get(i).getX() < 0 || flyingBullets.get(i).getY() > 800 || flyingBullets.get(i).getY() < 0){
        flyingBullets.remove(i);
-       System.out.println(flyingBullets.size());
+       //System.out.println(flyingBullets.size());
     }
   }
   //System.out.println(flyingBullets.size());
@@ -59,23 +76,25 @@ public void draw()
       firstRock.remove(i);
     }
   }
-  for(int i = 0; i < firstRock.size(); i++){
-    for(int x = 0; x < flyingBullets.size(); x++){
-        //if(flyingBullets.get(x).getX() <= firstRock.get(i).getX() + (10 * firstRock.get(i).getSize()) && flyingBullets.get(x).getX() >= firstRock.get(i).getX() - (10 * firstRock.get(i).getSize()) && flyingBullets.get(x).getY() >= firstRock.get(i).getX() - (10 * firstRock.get(i).getSize()) && flyingBullets.get(x).getY() >= firstRock.get(i).getX() - (10 * firstRock.get(i).getSize())){
-        //System.out.println("rock x: "+ (firstRock.get(i).getX() + (10 * firstRock.get(i).getSize())) + ", bullet x: " + flyingBullets.get(x).getX());
-      if(dist(flyingBullets.get(x).getX(), flyingBullets.get(x).getY(), firstRock.get(i).getX(), firstRock.get(i).getX()) < 10*firstRock.get(i).getSize()){
-        System.out.println("bullet: " + flyingBullets.get(x).getX() +" "+ flyingBullets.get(x).getY() +" "+ firstRock.get(i).getX() +" "+ firstRock.get(i).getX());
-        flyingBullets.remove(x);
-        if(firstRock.get(i).getSize() > 1){
-          firstRock.get(i).split();
-          System.out.println("hit");
-        }
-        else {
-          firstRock.remove(i);
-        }
-      }
-    }
-  }
+  // for(int i = 0; i < firstRock.size(); i++){
+  //   for(int x = 0; x < flyingBullets.size(); x++){
+  //       //if(flyingBullets.get(x).getX() <= firstRock.get(i).getX() + (10 * firstRock.get(i).getSize()) && flyingBullets.get(x).getX() >= firstRock.get(i).getX() - (10 * firstRock.get(i).getSize()) && flyingBullets.get(x).getY() >= firstRock.get(i).getX() - (10 * firstRock.get(i).getSize()) && flyingBullets.get(x).getY() >= firstRock.get(i).getX() - (10 * firstRock.get(i).getSize())){
+  //       //System.out.println("rock x: "+ (firstRock.get(i).getX() + (10 * firstRock.get(i).getSize())) + ", bullet x: " + flyingBullets.get(x).getX());
+  //     if(dist(flyingBullets.get(x).getX(), flyingBullets.get(x).getY(), firstRock.get(i).getX(), firstRock.get(i).getX()) < 10*firstRock.get(i).getSize()){
+  //       System.out.println("bullet: " + flyingBullets.get(x).getX() +" "+ flyingBullets.get(x).getY() +" "+ firstRock.get(i).getX() +" "+ firstRock.get(i).getX());
+  //       flyingBullets.remove(x);
+  //       if(firstRock.get(i).getSize() > 1){
+  //         firstRock.get(i).split();
+  //         System.out.println("hit");
+  //       }
+  //       else {
+  //         firstRock.remove(i);
+  //       }
+  //     }
+  //   }
+  // }
+  fill(255,0,0);
+  text("score: " + score, 900,700);
 }
 class SpaceShip extends Floater  
 {   
@@ -357,7 +376,7 @@ public class Bullet{
   private float speed, xPos, yPos;
   private double direction;
   public Bullet(){
-    speed = 5;
+    speed = 8;
     direction = crashGreen.getPointDirection();
     xPos = crashGreen.getX();
     yPos = crashGreen.getY();
